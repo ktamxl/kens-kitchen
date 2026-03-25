@@ -598,16 +598,60 @@
   </footer>
 
   <script>
-    function setScale(btn, factor) {
-      document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const notes = {
-        1: 'Showing base recipe quantities.',
-        2: 'Double all ingredient amounts. Steam time stays 20 min + 5 min rest.',
-        3: 'Triple all ingredient amounts. Steam in batches if needed. Steam time stays 20 min + 5 min rest.'
+    (function () {
+      const FRAC_VALS = { '½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 1/3, '⅔': 2/3, '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875, '⅙': 1/6 };
+      const FRAC_MAP = [[0.125,'⅛'],[0.1667,'⅙'],[0.25,'¼'],[0.3333,'⅓'],[0.375,'⅜'],[0.5,'½'],[0.625,'⅝'],[0.6667,'⅔'],[0.75,'¾'],[0.875,'⅞']];
+      const FC = Object.keys(FRAC_VALS).join('');
+      const LEAD_RE = new RegExp('^(~?)\\s*(\\d+(?:\\.\\d+)?)\\s*([' + FC + '])?(.*)', 's');
+      const RANGE_RE = new RegExp('^(~?)(\\d+(?:\\.\\d+)?)\\s*[–\\-](\\d+(?:\\.\\d+)?)(.*)', 's');
+
+      function nearFrac(f) {
+        for (const [fv, fs] of FRAC_MAP) if (Math.abs(f - fv) < 0.04) return fs;
+        return null;
+      }
+      function fmtNum(val, approx) {
+        const p = approx ? '~' : '';
+        if (val <= 0) return p + '0';
+        const w = Math.floor(val), fr = val - w;
+        if (fr < 0.02) return p + w;
+        const fs = nearFrac(fr);
+        if (fs) return p + (w > 0 ? w : '') + fs;
+        if (val >= 100) return p + Math.round(val);
+        if (val >= 10) return p + (Math.round(val * 10) / 10);
+        return p + (Math.round(val * 100) / 100);
+      }
+      function scaleQty(base, factor) {
+        if (factor === 1) return base;
+        const rm = base.match(RANGE_RE);
+        if (rm) return fmtNum(parseFloat(rm[2]) * factor, rm[1]==='~') + '–' + fmtNum(parseFloat(rm[3]) * factor, false) + rm[4];
+        const m = base.match(LEAD_RE);
+        if (m && (m[2] || m[3])) {
+          const val = (m[2] ? parseFloat(m[2]) : 0) + (m[3] ? (FRAC_VALS[m[3]] || 0) : 0);
+          if (val > 0) return fmtNum(val * factor, m[1]==='~') + m[4];
+        }
+        return base;
+      }
+
+      const SCALE_NOTES = {
+        1: 'Showing base recipe quantities (serves 2–4).',
+        2: 'Scaled to 2× — serves 6–8. Steam in two batches if needed. Steam time stays 20 min + 5 min rest.',
+        3: 'Scaled to 3× — serves 10–12. Steam in batches. Steam time stays 20 min + 5 min rest.'
       };
-      document.getElementById('scale-note').textContent = notes[factor];
-    }
+
+      window.setScale = function (btn, factor) {
+        document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.ingredient-table tr').forEach(row => {
+          const cells = row.querySelectorAll('td');
+          if (cells.length < 2) return;
+          const qtyCell = cells[cells.length - 1];
+          if (!qtyCell.hasAttribute('data-base')) qtyCell.setAttribute('data-base', qtyCell.textContent.trim());
+          qtyCell.textContent = scaleQty(qtyCell.getAttribute('data-base'), factor);
+        });
+        const el = document.getElementById('scale-note');
+        if (el) el.textContent = SCALE_NOTES[factor] || '';
+      };
+    })();
   </script>
 
 </body>
