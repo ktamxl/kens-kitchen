@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chicken Marsala — Ken's Kitchen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf7f2;
+      --warm-white: #fffdf9;
+      --ink: #1a1a1a;
+      --ink-light: #4a4a4a;
+      --gold: #c8952a;
+      --gold-light: #e8b84b;
+      --border: #e8e0d4;
+      --shadow: rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold-light); }
+    nav .site-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: white;
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 400;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.55);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 48px 48px 52px;
+      max-width: 900px;
+    }
+    .hero-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .hero-chinese {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--ink);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .meta-item {
+      padding: 18px 32px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      flex: 1;
+      min-width: 120px;
+    }
+    .meta-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── BODY LAYOUT ── */
+    .content-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 32px 80px;
+    }
+
+    /* ── INTRO ── */
+    .recipe-intro {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.9;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .photo-strip img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* ── SECTION HEADING ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .section-head .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--border);
+      line-height: 1;
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .section-label-small {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ── INGREDIENT TABLE ── */
+    .ingredient-group { margin-bottom: 36px; }
+    .ingredient-group h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .ingredient-table { width: 100%; border-collapse: collapse; }
+    .ingredient-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .ingredient-table td:first-child { color: var(--ink); width: 55%; }
+    .ingredient-table td:last-child { color: var(--ink-light); text-align: right; font-weight: 700; }
+
+    .tip-box {
+      background: #fffbf0;
+      border-left: 3px solid var(--gold);
+      padding: 14px 18px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      border-radius: 0 2px 2px 0;
+    }
+    .tip-box strong { color: var(--gold); }
+
+    /* ── INSTRUCTIONS ── */
+    .instructions { list-style: none; }
+    .instructions li {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--ink);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .step-body { flex: 1; }
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .step-text { font-size: 0.95rem; color: var(--ink-light); line-height: 1.75; }
+    .step-warning {
+      background: #fff5f5;
+      border-left: 3px solid #c0392b;
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #7a2020;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 52px 0;
+    }
+
+    /* ── CHEF'S NOTES ── */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .note-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 20px;
+    }
+    .note-card .icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .note-card h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; margin-bottom: 6px; }
+    .note-card p { font-size: 0.87rem; color: var(--ink-light); line-height: 1.6; }
+
+    /* ── SCALING ── */
+    .scaling-box {
+      background: var(--ink);
+      color: white;
+      padding: 32px;
+      border-radius: 4px;
+      margin-top: 52px;
+    }
+    .scaling-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--gold-light);
+    }
+    .scaling-box p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+    .scale-controls { display: flex; gap: 12px; flex-wrap: wrap; }
+    .scale-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      padding: 8px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.2s;
+    }
+    .scale-btn:hover, .scale-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: white;
+    }
+    .scale-note { margin-top: 16px; font-size: 0.85rem; color: rgba(255,255,255,0.5); font-style: italic; }
+
+    /* ── BACK ── */
+    .back-bar {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold); }
+
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+    }
+    footer strong { color: rgba(255,255,255,0.7); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 14px 16px; }
+      nav .site-name { display: none; }
+      .hero { height: 55vh; min-height: 340px; }
+      .hero-content { padding: 24px 20px 32px; }
+      .hero-title { font-size: 1.9rem; }
+      .hero-chinese { font-size: 1.1rem; }
+      .meta-bar { display: grid; grid-template-columns: 1fr 1fr; }
+      .meta-item { min-width: unset; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .content-wrap { padding: 36px 18px 56px; }
+      .recipe-intro { font-size: 1rem; }
+      .photo-strip { grid-template-columns: 1fr; }
+      .section-head .num { font-size: 2.2rem; }
+      .section-head h2 { font-size: 1.3rem; }
+      .ingredient-table td { font-size: 0.88rem; }
+      .instructions li { gap: 14px; }
+      .step-num { width: 30px; height: 30px; font-size: 0.75rem; }
+      .step-title { font-size: 0.98rem; }
+      .step-text { font-size: 0.9rem; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .scaling-box { padding: 24px 20px; }
+      .scale-controls { flex-direction: column; }
+      .scale-btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      All Recipes
+    </a>
+    <a href="index.html" class="site-name">Ken's Kitchen</a>
+    <span style="width:100px"></span>
+  </nav>
+
+  <section class="hero">
+    <img class="hero-img" src="imgs/chicken-marsala-hero.jpg" alt="Chicken Marsala" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Recipe No. 004 &middot; Italian-American &middot; Trattoria Classic</div>
+      <h1 class="hero-title">Chicken Marsala</h1>
+      <div class="hero-chinese">Pollo al Marsala</div>
+    </div>
+  </section>
+
+  <div class="meta-bar">
+    <div class="meta-item"><span class="meta-label">Serves</span><span class="meta-value">4</span></div>
+    <div class="meta-item"><span class="meta-label">Total Time</span><span class="meta-value">~30 minutes</span></div>
+    <div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-value">Easy</span></div>
+    <div class="meta-item"><span class="meta-label">Serve With</span><span class="meta-value">Butter-Parmesan Linguine</span></div>
+  </div>
+
+  <div class="content-wrap">
+
+    <p class="recipe-intro">
+      Marsala is the trick Italian-American kitchens have been pulling on home cooks for a century: one bottle of fortified wine turns a plain pan-seared cutlet into something that tastes like a Sunday dinner. This is the weeknight version — four cutlets, one wide pan, mushrooms browned properly, and a sauce thickened just enough to coat a spoon. Serve it over butter-parmesan linguine and it stops being a chicken dish and becomes a plate worth repeating.
+    </p>
+
+    <!-- INGREDIENTS -->
+    <div class="section-head">
+      <span class="num">01</span>
+      <h2>Ingredients</h2>
+    </div>
+
+    <div class="ingredient-group">
+      <h3>Chicken &amp; Sauce</h3>
+      <table class="ingredient-table">
+        <tr><td>Chicken breasts (butterflied into 4 cutlets)</td><td>2 large</td></tr>
+        <tr><td>All-purpose flour, for dredging</td><td>½ cup</td></tr>
+        <tr><td>Salt &amp; pepper (mixed into the dredging flour)</td><td>to taste</td></tr>
+        <tr><td>Olive oil</td><td>for the pan</td></tr>
+        <tr><td>Cremini mushrooms</td><td>1 lb</td></tr>
+        <tr><td>Garlic, chopped</td><td>8 cloves</td></tr>
+        <tr><td>Shallots, finely diced (red or yellow onion works too)</td><td>2</td></tr>
+        <tr><td>Butter, for the mushrooms</td><td>2 tbsp</td></tr>
+        <tr><td>All-purpose flour, for the sauce</td><td>~2 tbsp</td></tr>
+        <tr><td>Marsala wine</td><td>1⅓ cups</td></tr>
+        <tr><td>Chicken stock</td><td>~1 cup</td></tr>
+        <tr><td>Heavy cream</td><td>~⅔ cup</td></tr>
+      </table>
+      <div class="tip-box"><strong>The pan is the recipe:</strong> don't crowd it. Four cutlets in one pan steam instead of browning — two batches in a wide skillet beats one crowded pan every time.</div>
+    </div>
+
+    <div class="ingredient-group">
+      <h3>Butter-Parmesan Noodles</h3>
+      <table class="ingredient-table">
+        <tr><td>Linguine</td><td>1 lb</td></tr>
+        <tr><td>Butter</td><td>4 tbsp</td></tr>
+        <tr><td>Parmesan, grated (plus more to serve)</td><td>~1 cup</td></tr>
+        <tr><td>Reserved starchy pasta water</td><td>1.5–2 cups</td></tr>
+        <tr><td>Salt &amp; pepper</td><td>to taste</td></tr>
+      </table>
+      <div class="tip-box"><strong>Timing:</strong> put the water on when the chicken hits the pan — the pasta should finish at the same moment as the sauce.</div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- INSTRUCTIONS -->
+    <div class="section-head">
+      <span class="num">02</span>
+      <h2>Instructions</h2>
+    </div>
+
+    <ol class="instructions">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Butterfly the Chicken</div>
+          <div class="step-text">Cut each breast horizontally through the middle, open it up, and split into 2 pieces. Put each piece in a Ziploc bag and gently flatten to even thickness — a wine bottle works as a mallet.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Dredge</div>
+          <div class="step-text">Coat both sides of each cutlet in the seasoned flour.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Sear</div>
+          <div class="step-text">Heat a good glug of olive oil in a wide pan until shimmering (test it: sprinkle in a little flour — it should bubble and brown). Cook the cutlets in two batches so the pan is never crowded: about <strong>3 minutes</strong> on the first side, <strong>2 minutes</strong> on the second, until golden. Remove and rest; add fresh oil between batches.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Prep the Mushrooms</div>
+          <div class="step-text">Brush off any dirt with a towel and snap out the stems, then slice. Same pan back on the heat; cook until soft and nicely coloured, a few minutes. Add the butter.</div>
+          <div class="step-warning">⚠️ Don't wash the mushrooms. Water makes them steam and go rubbery — wipe them clean instead.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Aromatics</div>
+          <div class="step-text">Push the mushrooms aside, add a touch more oil, then the garlic and shallots. Cook <strong>35–45 seconds</strong>, just until fragrant — no longer.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Thicken</div>
+          <div class="step-text">Sprinkle about <strong>2 tbsp flour</strong> over everything and stir it in.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Deglaze</div>
+          <div class="step-text">Add the Marsala, scraping up all the browned bits from the bottom of the pan as the sauce starts to thicken.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-title">Stock</div>
+          <div class="step-text">Add the chicken stock and bring it to a simmer.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <div class="step-title">Cream</div>
+          <div class="step-text">Add the cream and simmer until the sauce thickens — it's ready when a spatula dragged across the pan leaves a trail that doesn't immediately fill in.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">10</div>
+        <div class="step-body">
+          <div class="step-title">Reunite</div>
+          <div class="step-text">Nestle all 4 cutlets back in, spoon sauce over the top, and keep everything on low while you finish the noodles.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">11</div>
+        <div class="step-body">
+          <div class="step-title">Noodles</div>
+          <div class="step-text">Drain the pasta and return it to the pot with the butter; mix to melt. Add the parmesan and splashes of the reserved pasta water until glossy and creamy. Season with salt and pepper.</div>
+          
+        </div>
+      </li>
+      <li>
+        <div class="step-num">12</div>
+        <div class="step-body">
+          <div class="step-title">Plate</div>
+          <div class="step-text">Noodles down first, chicken on top with plenty of extra sauce. Finish with cracked pepper; parsley or more parmesan if you like.</div>
+          
+        </div>
+      </li>
+    </ol>
+
+    <hr class="divider" />
+
+    <!-- CHEF'S NOTES -->
+    <div class="section-head">
+      <span class="num">03</span>
+      <h2>Chef's Notes</h2>
+    </div>
+
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="icon">🍄</div>
+        <h4>Cooking for a Crowd</h4>
+        <p>Two pans help: a wide skillet or a Dutch oven can sear all four cutlets in one go. Otherwise work in batches — don't crowd the pan or the chicken steams instead of browning.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">🍷</div>
+        <h4>Marsala Math</h4>
+        <p>1⅓ cups is just over half a standard bottle, so one ~$15 bottle covers the whole recipe. Port, brandy, or white wine plus a splash of brandy all substitute fine.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">🍝</div>
+        <h4>Linguine, From Dry</h4>
+        <p>Big pot — at least 4 quarts of water for a full pound. Salt well once boiling (1.5–2 tbsp kosher salt). Boil 1 minute less than the package says; the noodles finish softening under the hot sauce. Reserve the starchy water before draining, and never rinse.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">🥄</div>
+        <h4>The Sauce Test</h4>
+        <p>Stock and cream are estimates — start where the recipe says and adjust until the sauce coats a spoon the way you like it. At double volume it simply needs an extra minute or two.</p>
+      </div>
+    </div>
+
+    <!-- SCALING -->
+    <div class="scaling-box">
+      <h3>Scaling This Recipe</h3>
+      <p>Cooking for more? Scale the ingredients proportionally. Sear in batches and give the sauce a little extra time — it thickens more slowly at volume.</p>
+      <div class="scale-controls">
+        <button class="scale-btn active" onclick="setScale(this, 1)">Serves 4 (Base)</button>
+        <button class="scale-btn" onclick="setScale(this, 2)">Serves 8 (2×)</button>
+        <button class="scale-btn" onclick="setScale(this, 3)">Serves 12 (3×)</button>
+      </div>
+      <div class="scale-note" id="scale-note">Showing base recipe quantities.</div>
+    </div>
+
+  </div>
+
+  <div class="back-bar">
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+      Back to All Recipes
+    </a>
+  </div>
+
+  <footer>
+    <strong>Ken's Kitchen</strong> &middot; Recipe No. 004 &middot; Pollo al Marsala<br/>
+    食在家中，味在心裡
+  </footer>
+
+  <script>
+    (function () {
+      const FRAC_VALS = { '½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 1/3, '⅔': 2/3, '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875, '⅙': 1/6 };
+      const FRAC_MAP = [[0.125,'⅛'],[0.1667,'⅙'],[0.25,'¼'],[0.3333,'⅓'],[0.375,'⅜'],[0.5,'½'],[0.625,'⅝'],[0.6667,'⅔'],[0.75,'¾'],[0.875,'⅞']];
+      const FC = Object.keys(FRAC_VALS).join('');
+      const LEAD_RE = new RegExp('^(~?)\\s*(\\d+(?:\\.\\d+)?)?(?:\\s*([' + FC + ']))?(.*)', 's');
+      const RANGE_RE = new RegExp('^(~?)(\\d+(?:\\.\\d+)?)\\s*[–\\-](\\d+(?:\\.\\d+)?)(.*)', 's');
+      const PLURAL = { cup:'cups', clove:'cloves', stalk:'stalks', piece:'pieces', shallot:'shallots', batch:'batches', breast:'breasts' };
+
+      function nearFrac(f) {
+        for (const [fv, fs] of FRAC_MAP) if (Math.abs(f - fv) < 0.04) return fs;
+        return null;
+      }
+      function fmtNum(val, approx) {
+        const p = approx ? '~' : '';
+        if (val <= 0) return p + '0';
+        const w = Math.floor(val), fr = val - w;
+        if (fr < 0.02) return p + w;
+        const fs = nearFrac(fr);
+        if (fs) return p + (w > 0 ? w : '') + fs;
+        if (val >= 100) return p + Math.round(val);
+        if (val >= 10) return p + (Math.round(val * 10) / 10);
+        return p + (Math.round(val * 100) / 100);
+      }
+      function pluralise(rest, val) {
+        if (val === 1) return rest;
+        return rest.replace(/^(\s)(cup|clove|stalk|piece|shallot|batch|breast)\b/i,
+          function (m, sp, w) { return sp + (PLURAL[w.toLowerCase()] || w); });
+      }
+      function scaleQty(base, factor) {
+        if (factor === 1) return base;
+        const rm = base.match(RANGE_RE);
+        if (rm) return fmtNum(parseFloat(rm[2]) * factor, rm[1]==='~') + '–' + fmtNum(parseFloat(rm[3]) * factor, false) + rm[4];
+        const m = base.match(LEAD_RE);
+        if (m && (m[2] || m[3])) {
+          const val = (m[2] ? parseFloat(m[2]) : 0) + (m[3] ? (FRAC_VALS[m[3]] || 0) : 0);
+          if (val > 0) {
+            const nv = val * factor;
+            return fmtNum(nv, m[1]==='~') + pluralise(m[4], nv);
+          }
+        }
+        return base;
+      }
+
+      const SCALE_NOTES = {
+        1: 'Showing base recipe quantities (serves 4).',
+        2: 'Scaled to 2× — serves 8. Sear in batches and give the sauce an extra minute or two to thicken.',
+        3: 'Scaled to 3× — serves 12. The sauce needs more time at volume — trust the spatula-trail test.'
+      };
+
+      window.setScale = function (btn, factor) {
+        document.querySelectorAll('.scale-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelectorAll('.ingredient-table tr').forEach(function (row) {
+          const cells = row.querySelectorAll('td');
+          if (cells.length < 2) return;
+          const qtyCell = cells[cells.length - 1];
+          if (!qtyCell.hasAttribute('data-base')) qtyCell.setAttribute('data-base', qtyCell.textContent.trim());
+          qtyCell.textContent = scaleQty(qtyCell.getAttribute('data-base'), factor);
+        });
+        const el = document.getElementById('scale-note');
+        if (el) el.textContent = SCALE_NOTES[factor] || '';
+      };
+    })();
+  </script>
+
+</body>
+</html>
