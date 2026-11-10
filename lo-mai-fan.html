@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stir-fried Glutinous Rice — Ken's Kitchen</title>
+  <meta name="description" content="生炒臘味糯米飯 — Cantonese stir-fried glutinous rice with preserved sausage and cured pork, cooked from raw rice in a wok." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf7f2;
+      --warm-white: #fffdf9;
+      --ink: #1a1a1a;
+      --ink-light: #4a4a4a;
+      --gold: #c8952a;
+      --gold-light: #e8b84b;
+      --border: #e8e0d4;
+      --shadow: rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold-light); }
+    nav .site-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: white;
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 400;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.55);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 48px 48px 52px;
+      max-width: 900px;
+    }
+    .hero-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .hero-chinese {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ── META BAR ── */
+    .meta-bar {
+      background: var(--ink);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .meta-item {
+      padding: 18px 32px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      flex: 1;
+      min-width: 120px;
+    }
+    .meta-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── BODY LAYOUT ── */
+    .content-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 32px 80px;
+    }
+
+    /* ── INTRO ── */
+    .recipe-intro {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.9;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .photo-strip img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* ── SECTION HEADING ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .section-head .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--border);
+      line-height: 1;
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .section-label-small {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ── INGREDIENT TABLE ── */
+    .ingredient-group { margin-bottom: 36px; }
+    .ingredient-group h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .ingredient-table { width: 100%; border-collapse: collapse; }
+    .ingredient-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .ingredient-table td:first-child { color: var(--ink); width: 55%; }
+    .ingredient-table td:last-child { color: var(--ink-light); text-align: right; font-weight: 700; }
+
+    .tip-box {
+      background: #fffbf0;
+      border-left: 3px solid var(--gold);
+      padding: 14px 18px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      border-radius: 0 2px 2px 0;
+    }
+    .tip-box strong { color: var(--gold); }
+
+    /* ── INSTRUCTIONS ── */
+    .instructions { list-style: none; }
+    .instructions li {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--ink);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .step-body { flex: 1; }
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .step-text { font-size: 0.95rem; color: var(--ink-light); line-height: 1.75; }
+    .step-warning {
+      background: #fff5f5;
+      border-left: 3px solid #c0392b;
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #7a2020;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 52px 0;
+    }
+
+    /* ── CHEF'S NOTES ── */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .note-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 20px;
+    }
+    .note-card .icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .note-card h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; margin-bottom: 6px; }
+    .note-card p { font-size: 0.87rem; color: var(--ink-light); line-height: 1.6; }
+
+    /* ── SCALING ── */
+    .scaling-box {
+      background: var(--ink);
+      color: white;
+      padding: 32px;
+      border-radius: 4px;
+      margin-top: 52px;
+    }
+    .scaling-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--gold-light);
+    }
+    .scaling-box p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+    .scale-controls { display: flex; gap: 12px; flex-wrap: wrap; }
+    .scale-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      padding: 8px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.2s;
+    }
+    .scale-btn:hover, .scale-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: white;
+    }
+    .scale-note { margin-top: 16px; font-size: 0.85rem; color: rgba(255,255,255,0.5); font-style: italic; }
+
+    /* ── BACK ── */
+    .back-bar {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold); }
+
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+    }
+    footer strong { color: rgba(255,255,255,0.7); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 14px 16px; }
+      nav .site-name { display: none; }
+      .hero { height: 55vh; min-height: 340px; }
+      .hero-content { padding: 24px 20px 32px; }
+      .hero-title { font-size: 1.9rem; }
+      .hero-chinese { font-size: 1.1rem; }
+      .meta-bar { display: grid; grid-template-columns: 1fr 1fr; }
+      .meta-item { min-width: unset; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .content-wrap { padding: 36px 18px 56px; }
+      .recipe-intro { font-size: 1rem; }
+      .photo-strip { grid-template-columns: 1fr; }
+      .section-head .num { font-size: 2.2rem; }
+      .section-head h2 { font-size: 1.3rem; }
+      .ingredient-table td { font-size: 0.88rem; }
+      .instructions li { gap: 14px; }
+      .step-num { width: 30px; height: 30px; font-size: 0.75rem; }
+      .step-title { font-size: 0.98rem; }
+      .step-text { font-size: 0.9rem; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .scaling-box { padding: 24px 20px; }
+      .scale-controls { flex-direction: column; }
+      .scale-btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="site-name">Ken's Kitchen</a>
+  </nav>
+
+  <section class="hero">
+    <img class="hero-img" src="imgs/lo-mai-fan-hero.jpg" alt="Stir-fried glutinous rice with preserved sausage and cured pork in a bamboo steamer" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Recipe No. 017 &middot; Cantonese &middot; Winter Classic</div>
+      <h1 class="hero-title">Stir-fried Glutinous Rice</h1>
+      <div class="hero-chinese">生炒臘味糯米飯</div>
+    </div>
+  </section>
+
+  <div class="meta-bar">
+    <div class="meta-item"><span class="meta-label">Serves</span><span class="meta-value">4</span></div>
+    <div class="meta-item"><span class="meta-label">Prep</span><span class="meta-value">20 min + 3 hr soak</span></div>
+    <div class="meta-item"><span class="meta-label">Cook</span><span class="meta-value">35 minutes</span></div>
+    <div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-value">Hard</span></div>
+  </div>
+
+  <div class="content-wrap">
+
+    <p class="recipe-intro">
+      This is the dish Hong Kong cooks order in restaurants and almost never make at home: <strong>raw glutinous rice, stir-fried from scratch</strong> with the fat of preserved sausage and cured pork, liquid added a spoonful at a time, thirty minutes of stirring without stopping. There is no shortcut that tastes the same. The rice has to drink the fat slowly, grain by grain, until it turns translucent and chewy and still falls apart under the chopsticks. Do it once and you understand why it costs what it costs on a winter menu.
+    </p>
+
+    <div class="section-head">
+      <span class="num">01</span>
+      <h2>Ingredients</h2>
+    </div>
+
+    <div class="ingredient-group">
+      <h3>The Rice</h3>
+      <table class="ingredient-table">
+        <tr><td>Glutinous rice <em>糯米</em></td><td>200 g</td></tr>
+        <tr><td>Water or light stock, for sprinkling</td><td>100–150 ml</td></tr>
+      </table>
+      <div class="tip-box"><strong>Glutinous rice, not sushi rice.</strong> It is opaque and chalky before soaking, and it is the only rice that goes properly sticky-chewy. Short-grain japonica will cook, but it will not give you this texture.</div>
+    </div>
+
+    <div class="ingredient-group">
+      <h3>The Cured Meats &amp; Dried Goods</h3>
+      <table class="ingredient-table">
+        <tr><td>Preserved sausage <em>臘腸</em> — about 40 g each</td><td>1</td></tr>
+        <tr><td>Preserved pork belly <em>臘肉</em> — a 200 g piece</td><td>¼ piece</td></tr>
+        <tr><td>Dried shrimp <em>蝦米</em></td><td>38 g</td></tr>
+        <tr><td>Dried shiitake mushrooms <em>冬菇</em></td><td>4</td></tr>
+        <tr><td>Fried peanuts <em>炸花生</em></td><td>a small handful</td></tr>
+      </table>
+      <div class="tip-box"><strong>Buy the sausage with visible fat.</strong> The white flecks are the point — they render into the oil that cooks the rice. A lean sausage gives you a dry wok and a dry dish.</div>
+    </div>
+
+    <div class="ingredient-group">
+      <h3>The Seasoning</h3>
+      <table class="ingredient-table">
+        <tr><td>Light soy sauce <em>生抽</em></td><td>1 tsp</td></tr>
+        <tr><td>Oyster sauce <em>蠔油</em></td><td>1 tbsp</td></tr>
+        <tr><td>Dark soy sauce <em>老抽</em></td><td>1 tsp</td></tr>
+        <tr><td>Sugar <em>糖</em></td><td>½ tsp</td></tr>
+        <tr><td>Sesame oil <em>麻油</em></td><td>1 tsp</td></tr>
+        <tr><td>Spring onion <em>蔥</em>, sliced</td><td>2</td></tr>
+      </table>
+      <div class="tip-box"><strong>Mix the sauces in a bowl first.</strong> Once the rice is cooked you have seconds before it starts to catch — there is no time to open four bottles at the wok.</div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section-head">
+      <span class="num">02</span>
+      <h2>Method</h2>
+    </div>
+
+    <ol class="instructions">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Soak the Rice — 3 Hours</div>
+          <div class="step-text">Cover the <strong>glutinous rice</strong> with cold water and leave it for <strong>3 hours</strong> — longer is fine, overnight is easier. Drain it in a sieve for at least <strong>15 minutes</strong>, then spread it on a tray to dry at the edges. The grains should look damp, not wet.</div>
+          <div class="step-warning">⚠️ Rice straight out of the water steams instead of frying. If it is still dripping, it will clump the moment it hits the wok.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Soak the Dried Goods — and Keep the Water</div>
+          <div class="step-text">Soak the <strong>shiitake</strong> and the <strong>dried shrimp</strong> separately in cold water for 3 hours. <strong>Keep the shrimp water</strong> — that is the liquid you will add to the rice, and it is where most of the flavour comes from. Meanwhile, blanch the <strong>sausage and pork belly</strong> in boiling water for 2 minutes: it washes off the surface grit and makes them far easier to slice.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Cut Everything Small and Even</div>
+          <div class="step-text">Slice the <strong>sausage</strong> into thin coins on the bias, dice the <strong>pork belly</strong> into 1 cm cubes, and cut the squeezed-dry <strong>mushrooms</strong> and <strong>shrimp</strong> into pieces about the size of a rice grain. Everything goes into the rice, so anything too big will sit in the bowl like a lump.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Render the Fat First</div>
+          <div class="step-text">Start the <strong>pork belly in a cold wok</strong> over low heat and let the fat run — this takes 4–5 minutes and you should not rush it. Add the <strong>sausage</strong>, then the <strong>mushrooms and shrimp</strong>, and fry until fragrant. Scoop the solids out and leave every drop of oil behind. That oil is what keeps the rice from sticking.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Coat Every Grain</div>
+          <div class="step-text">Turn the heat to low and tip in the drained <strong>rice</strong>. Stir constantly for <strong>3–4 minutes</strong> until every grain is glossy and coated in the cured-meat fat. Nothing is cooking yet — this step is purely about building a barrier between rice and metal.</div>
+          <div class="step-warning">⚠️ A non-stick wok will not survive this. Use a seasoned iron or carbon-steel wok, and keep the heat low until the rice is coated.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Add Liquid a Spoonful at a Time — 30 Minutes</div>
+          <div class="step-text">Raise the heat to medium. When the rice starts to feel sticky and heavy, sprinkle in <strong>1–2 tbsp of the shrimp water</strong> and stir it through. Wait until it turns sticky again before adding more. Repeat for <strong>25–30 minutes</strong>, always stirring and scraping the base, until the grains are translucent, chewy and separate. You will use <strong>100–150 ml</strong> in total.</div>
+          <div class="step-warning">⚠️ Never pour the liquid in at once. Rice that is given too much water at the start turns to porridge and never recovers.</div>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Season, Rest, Serve</div>
+          <div class="step-text">Return the <strong>sausage, pork, mushrooms and shrimp</strong> to the wok. Add the <strong>light soy, oyster sauce, dark soy and sugar</strong> and toss until the colour is even. Fold through the <strong>spring onion</strong>, drizzle the <strong>sesame oil</strong>, scatter the <strong>peanuts</strong>, then cover the wok, take it off the heat and let it <strong>rest for 3–4 minutes</strong>. Serve in bowls, or packed into a bamboo steamer the way the restaurants do.</div>
+        </div>
+      </li>
+    </ol>
+
+    <hr class="divider" />
+
+    <div class="section-head">
+      <span class="num">03</span>
+      <h2>Chef's Notes</h2>
+    </div>
+
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="icon">🍚</div>
+        <h4>Why Fry It Raw</h4>
+        <p>Steaming the rice first and frying it after is faster and gives you something closer to ordinary fried rice. Frying from raw keeps the grains separate and lets them drink the cured-meat fat slowly. That is the whole difference, and it is why the dish takes half an hour of stirring.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">🔥</div>
+        <h4>Iron, Not Non-Stick</h4>
+        <p>Thirty minutes of stirring over medium heat is beyond what a non-stick coating will take, and the coating is exactly what you are trying to avoid needing. A well-seasoned carbon-steel or cast-iron wok, hot and oily, will not stick.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">💧</div>
+        <h4>The Shrimp Water Is the Stock</h4>
+        <p>The water the dried shrimp soaked in is salty, sweet and deeply savoury. Use it instead of plain water and the rice tastes of something. If you skipped the shrimp, use a light chicken stock — never water with extra soy.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">🥢</div>
+        <h4>The Rest Finishes the Centre</h4>
+        <p>Take the wok off the heat, cover it, and wait four minutes. The residual steam finishes the middle of each grain while the outside stays firm. Serve it straight from the wok and the rice is chewier than it should be.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">❄️</div>
+        <h4>Better the Next Day, Steamed</h4>
+        <p>It reheats beautifully — a bowl covered with a plate over simmering water for 8 minutes brings it back. Day-old rice is firmer and separates more cleanly, which some people prefer.</p>
+      </div>
+    </div>
+
+    <div class="scaling-box">
+      <h3>Scaling This Recipe</h3>
+      <p>Doubling works, but only with a bigger wok — and it will not be twice as fast. Give it ten more minutes and stir in the same rhythm.</p>
+      <div class="scale-controls">
+        <button class="scale-btn active" onclick="setScale(this, 1)">Base (4 servings)</button>
+        <button class="scale-btn" onclick="setScale(this, 2)">Doubled (8 servings)</button>
+      </div>
+      <div class="scale-note" id="scale-note">Showing base recipe quantities.</div>
+    </div>
+
+    <p class="recipe-source" style="margin-top:34px;font-size:0.78rem;color:var(--ink-light);line-height:1.6;border-top:1px solid var(--border);padding-top:16px;">
+      Adapted from <a href="https://youtu.be/bgGHx9T-bVU" style="color:var(--gold);text-decoration:none;">Sing Sing Kitchen 職人吹水 — 生炒臘味糯米飯 (2020)</a>,
+      which shows the full raw-fry process; quantities cross-checked against a published Hong Kong recipe.
+      Photo: <em>A Fried Glutinous Rice with dried meat and dried pork sausage</em> by Peachyeung316, CC BY-SA 4.0, via
+      <a href="https://commons.wikimedia.org/wiki/File:A_Fried_Glutinous_Rice_with_dried_meat_and_dried_pork_sausage.jpg" style="color:var(--gold);text-decoration:none;">Wikimedia Commons</a>.
+    </p>
+
+  </div>
+
+  <div class="back-bar">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M10 12L6 8l4-4"/></svg>
+      Back to All Recipes
+    </a>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-name">Ken's Kitchen</div>
+      <div class="footer-sub">Recipe No. 017 &middot; 生炒臘味糯米飯</div>
+      <div class="footer-line">食在家中，味在心裡</div>
+    </div>
+  </footer>
+
+<script>
+    (function () {
+      const FRAC_VALS = { '½': 0.5, '¼': 0.25, '¾': 0.75, '⅓': 1/3, '⅔': 2/3, '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875, '⅙': 1/6 };
+      const FRAC_MAP = [[0.125,'⅛'],[0.1667,'⅙'],[0.25,'¼'],[0.3333,'⅓'],[0.375,'⅜'],[0.5,'½'],[0.625,'⅝'],[0.6667,'⅔'],[0.75,'¾'],[0.875,'⅞']];
+      const FC = Object.keys(FRAC_VALS).join('');
+      const LEAD_RE = new RegExp('^(~?)\\s*(\\d+(?:\\.\\d+)?)?(?:\\s*([' + FC + ']))?(.*)', 's');
+      const RANGE_RE = new RegExp('^(~?)(\\d+(?:\\.\\d+)?)\\s*[–\\-](\\d+(?:\\.\\d+)?)(.*)', 's');
+      const UNIT = /\b(cans|can|cups|cup|cloves|clove|stalks|stalk|pieces|piece|batches|batch|blocks|block|breasts|breast|racks|rack|heads|head|bunches|bunch|knobs|knob|sprigs|sprig)\b/i;
+
+      function nearFrac(f) {
+        for (const [fv, fs] of FRAC_MAP) if (Math.abs(f - fv) < 0.04) return fs;
+        return null;
+      }
+      function fmtNum(val, approx) {
+        const p = approx ? '~' : '';
+        if (val <= 0) return p + '0';
+        const w = Math.floor(val), fr = val - w;
+        if (fr < 0.02) return p + w;
+        const fs = nearFrac(fr);
+        if (fs) return p + (w > 0 ? w : '') + fs;
+        if (val >= 100) return p + Math.round(val);
+        if (val >= 10) return p + (Math.round(val * 10) / 10);
+        return p + (Math.round(val * 100) / 100);
+      }
+      function adjustUnit(rest, val) {
+        return rest.replace(UNIT, function (w) {
+          const low = w.toLowerCase();
+          const isPlural = /s$/.test(low);
+          const base = isPlural ? low.slice(0, -1) : low;
+          if (val <= 1) return isPlural ? base : w;
+          return isPlural ? w : base + (/[cs]h$|s$|x$|z$/.test(base) ? 'es' : 's');
+        });
+      }
+      function scaleQty(base, factor) {
+        if (factor === 1) return base;
+        const rm = base.match(RANGE_RE);
+        if (rm) return fmtNum(parseFloat(rm[2]) * factor, rm[1]==='~') + '–' + fmtNum(parseFloat(rm[3]) * factor, false) + rm[4];
+        const m = base.match(LEAD_RE);
+        if (m && (m[2] || m[3])) {
+          const val = (m[2] ? parseFloat(m[2]) : 0) + (m[3] ? (FRAC_VALS[m[3]] || 0) : 0);
+          if (val > 0) {
+            const nv = val * factor;
+            return fmtNum(nv, m[1]==='~') + adjustUnit(m[4], nv);
+          }
+        }
+        return base;
+      }
+
+      const SCALE_NOTES = {
+        1: 'Four servings — 200 g of rice, one sausage, a quarter piece of cured pork.',
+        2: 'Eight servings — 400 g of rice. Use the biggest wok you own; if it will not hold the rice in a loose layer, cook it in two batches.'
+      };
+
+      window.setScale = function (btn, factor) {
+        document.querySelectorAll('.scale-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        document.querySelectorAll('.ingredient-table tr').forEach(function (row) {
+          const cells = row.querySelectorAll('td');
+          if (cells.length < 2) return;
+          const qtyCell = cells[cells.length - 1];
+          if (!qtyCell.hasAttribute('data-base')) qtyCell.setAttribute('data-base', qtyCell.textContent.trim());
+          qtyCell.textContent = scaleQty(qtyCell.getAttribute('data-base'), factor);
+        });
+        const el = document.getElementById('scale-note');
+        if (el) el.textContent = SCALE_NOTES[factor] || '';
+      };
+    })();
+  </script>
+
+</body>
+</html>
